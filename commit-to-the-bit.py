@@ -7,7 +7,7 @@ from dateutil import parser
 FILE_PATH = Path.cwd()/"README.md"
 TITLE = "# the-bit\n"
 TODAY = datetime.today().date()
-MESSAGE = f"On {TODAY}, I committed to the bit!"
+MESSAGE = f"On {TODAY}, I committed to the bit!\n"
 REG = re.compile(r"(?P<title>#.*?\n\n)(?P<latest>.*?\n)(?P<log>.*)", re.S)
 
 def update_log(contents):
@@ -29,9 +29,10 @@ def main():
         parsed_file = REG.match(file_contents)
         if parsed_file:
             latest = parsed_file.group("latest")
+            log = parsed_file.group("log")
             latest_date = parser.parse(latest, fuzzy=True).date()
             if latest_date<TODAY:
-                contents = TITLE + "\n" + MESSAGE + "\n" + parsed_file.group("log")
+                contents = TITLE + "\n" + MESSAGE + "\n" + latest + log
             else:
                 contents = ""
         else:
