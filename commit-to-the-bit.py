@@ -39,5 +39,4 @@ def main():
     update_log(contents)
 
 if  __name__ == "__main__":
-    print("hello")
     main()
