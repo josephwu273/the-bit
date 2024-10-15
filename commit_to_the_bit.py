@@ -4,7 +4,8 @@ from datetime import datetime
 import re
 from dateutil import parser
 
-FILE_PATH = Path.cwd()/"README.md"
+THIS_FOLDER = Path(__file__).parent
+FILE_PATH = THIS_FOLDER.joinpath("README.md")
 TITLE = "# the-bit\n"
 TODAY = datetime.today().date()
 MESSAGE = f"On {TODAY}, I committed to the bit!\n"
@@ -16,9 +17,9 @@ def update_log(contents):
     with open(FILE_PATH, "w") as f:
         f.write(contents)
     try:
-        run(["git", "add", FILE_PATH])
-        run(["git", "commit", "-m", "Committing to the bit!"])
-        run(["git", "push"]) 
+        run(["git", "add", FILE_PATH], cwd=THIS_FOLDER)
+        run(["git", "commit", "-m", "Committing to the bit!"], cwd=THIS_FOLDER)
+        run(["git", "push"], cwd=THIS_FOLDER) 
     except Exception as e:
         print(f"An error occurred: {e}")
 
